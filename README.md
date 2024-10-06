@@ -4,11 +4,11 @@
 
 ## Introduction 🌟💡
 
-Flux-API-Worker is an AI image generation service deployed on Cloudflare Workers. It utilizes the Flux model provided by Cloudflare to generate images and offers an efficient API interface for handling requests. This service can be easily integrated into various applications, providing users with powerful AI image generation capabilities. ✨🖼️🚀
+Flux-API-Worker is an AI image generation service deployed on Cloudflare Workers. It utilizes Cloudflare's Flux model to generate images and provides an efficient API interface for handling requests. This service can be easily integrated into various applications, offering users powerful AI image generation capabilities. ✨🖼️🚀
 
 ## Features 🚀🌈
 
-- 🎨 Support for custom prompt-based image generation
+- 🎨 Support for custom prompts to generate images
 - 🌐 Optional prompt translation feature
 - 📐 Support for multiple preset image sizes and aspect ratios
 - 💾 Use of Cloudflare KV to store generated images
@@ -18,25 +18,25 @@ Flux-API-Worker is an AI image generation service deployed on Cloudflare Workers
 
 ## Quick Start 🏃‍♂️💨
 
-### Deploying in Cloudflare Dashboard 🖥️🛠️
+### Deploy in Cloudflare Dashboard 🖥️🛠️
 
-1. Log in to your Cloudflare account and go to the Workers page. 👨‍💻👩‍💻
+1. Log in to your Cloudflare account and navigate to the Workers page. 👨‍💻👩‍💻
 2. Click the "Create a Service" button. 🆕
-3. Name your Worker, for example, "flux-api". ✏️
+3. Name your Worker, e.g., "flux-api". ✏️
 4. Paste the provided Worker code into the editor. 📋
 5. Click the "Save and Deploy" button. 🚀
 
-### Setting Environment Variables ⚙️🔧
+### Set Up Environment Variables ⚙️🔧
 
 In the Worker's settings page, find the "Environment Variables" section and add the following variables:
 
 ## Environment Variables List 📋🔑
 
-| Variable Name | Description | Type | Example | Default Value |
-|---------------|-------------|------|---------|---------------|
+| Variable Name | Description | Type | Example | Default |
+|---------------|-------------|------|---------|---------|
 | `API_KEY` | API authentication key 🔐 | String | `"your-complex-api-key-here"` | - |
-| `CF_ACCOUNT_ID` | Cloudflare account ID 🆔 | String | `"1a2b3c4d5e6f7g8h9i0j"` | - |
-| `CF_API_TOKEN` | Cloudflare API token 🎟️ | String | `"your-cloudflare-api-token"` | - |
+| `CF_ACCOUNT_ID` | Cloudflare Account ID 🆔 | String | `"1a2b3c4d5e6f7g8h9i0j"` | - |
+| `CF_API_TOKEN` | Cloudflare API Token 🎟️ | String | `"your-cloudflare-api-token"` | - |
 | `CF_IS_TRANSLATE` | Enable prompt translation 🌐 | String | `"true"` or `"false"` | - |
 | `EXTERNAL_API_BASE` | External API base URL 🔗 | String | `"https://api.external-service.com"` | - |
 | `EXTERNAL_MODEL` | External translation model name 🤖 | String | `"gpt-3.5-turbo"` | - |
@@ -44,24 +44,24 @@ In the Worker's settings page, find the "Environment Variables" section and add 
 | `FLUX_NUM_STEPS` | Number of steps for Flux model 🚶 | Integer | `"4"` | 4 |
 | `IMAGE_EXPIRATION` | Image expiration time in KV (seconds) ⏳ | Integer | `"1800"` | 1800 |
 
-Please ensure these variables are correctly configured in your Cloudflare Worker's environment variables settings. For variables with default values, you can keep the default setting if no change is needed. 🔧✅
+Ensure these variables are correctly configured in your Cloudflare Worker's environment variables settings. For variables with default values, you can keep the default if no change is needed. 🔧✅
 
-> Note: For security, set a complex string for `API_KEY`. This will be used to verify the legitimacy of API calls. 🔒🛡️
+> Note: For security, set a complex string for `API_KEY`. This will be used to validate the legitimacy of API calls. 🔒🛡️
 
-### Creating KV Namespace 🗄️📦
+### Create KV Namespace 🗄️📦
 
 1. In the Cloudflare Dashboard, go to the "Workers" page. 🖥️
 2. Click on the "KV" tab. 📑
 3. Create a new namespace named "FLUX_CF_KV". 🆕
 4. In the Worker's settings, bind this KV namespace to the `FLUX_CF_KV` variable. 🔗
 
-## API Endpoints and Features 🌐🛠️
+## API Endpoints and Functionality 🌐🛠️
 
 ### 1. Welcome Page 👋
 
-Accessing the Worker's root path (`https://<your_worker_name>.<your_subdomain>.workers.dev/`) will display a welcome page, confirming that the API service is running. ✅🏠
+Accessing the Worker's root path (`https://<your_worker_name>.<your_subdomain>.workers.dev/`) will display a welcome page confirming the API service is running. ✅🏠
 
-### 2. Chat Completion Endpoint 💬
+### 2. Chat Completions Endpoint 💬
 
 Main image generation endpoint:
 ```
@@ -87,9 +87,9 @@ https://<your_worker_name>.<your_subdomain>.workers.dev/image/{image_key}
 
 ## Usage Guide 📖🧭
 
-### Generating Images 🖼️🎨
+### Generate Images 🖼️🎨
 
-Send a POST request to the chat completion endpoint in the following format:
+Send a POST request to the chat completions endpoint in the following format:
 
 ```json
 {
@@ -103,7 +103,7 @@ Send a POST request to the chat completion endpoint in the following format:
 }
 ```
 
-The request header must include:
+The request headers must include:
 
 ```
 Authorization: Bearer YOUR_API_KEY
@@ -128,7 +128,7 @@ If you want to receive a streaming response, set the `stream` parameter to `true
 }
 ```
 
-Streaming responses will be returned in Server-Sent Events (SSE) format, allowing real-time progress updates. ⚡🔄
+Streaming responses will be returned in Server-Sent Events (SSE) format, allowing real-time generation progress updates. ⚡🔄
 
 ### Supported Image Sizes 📏🖼️
 
@@ -150,21 +150,21 @@ If no size is specified, the system will default to generating a 1:1 (1024x1024)
 
 ### Cross-Origin Resource Sharing (CORS) Support 🌍🔓
 
-Flux-API-Worker supports CORS, allowing access to the API from web applications on different domains. This means you can call the API directly in frontend JavaScript applications without encountering cross-origin issues. 🔗🚫🚧
+Flux-API-Worker supports CORS, allowing access to the API from web applications on different domains. This means you can call the API directly from frontend JavaScript applications without encountering cross-origin issues. 🔗🚫🚧
 
 ### Using in Third-Party Applications 🔗🔌
 
 Flux-API-Worker can be easily integrated into various applications such as NextWeb, ChatBox, etc. When configuring in these applications:
 
-1. Set the API address to your Worker URL (chat completion endpoint). 🔗
-2. Enter the API KEY you've set. 🔑
+1. Set the API address to your Worker URL (chat completions endpoint). 🔗
+2. Enter the API KEY you set. 🔑
 3. Ignore the System Message setting provided by the application, as Flux-API-Worker uses built-in System Messages. 💬🚫
 
-> Note: Flux-API-Worker has removed the context feature, and each call will generate a new unique image. 🆕🖼️
+> Note: Flux-API-Worker has removed the context functionality, generating a new unique image with each call. 🆕🖼️
 
 ### Response Format 📤📊
 
-Non-streaming response example:
+Example of a non-streaming response:
 
 ```json
 {
@@ -190,20 +190,20 @@ Non-streaming response example:
 }
 ```
 
-## Notes ⚠️🚨
+## Considerations ⚠️🚨
 
 - Ensure all necessary environment variables are correctly set. ✅🔧
-- The API key should be kept secure and not exposed in client-side code. 🔒🙈
-- Images in KV storage have an expiration time (default 30 minutes), please save important images promptly. ⏳💾
-- If prompt translation is enabled, ensure the external API is configured correctly. 🌐🔧
+- API keys should be kept secure and not exposed in client-side code. 🔒🙈
+- Images in KV storage have an expiration time (default 30 minutes), so save important images promptly. ⏳💾
+- If enabling prompt translation, ensure the external API is configured correctly. 🌐🔧
 - When using streaming responses, make sure your client can properly handle Server-Sent Events. 🌊📡
 
 ## Troubleshooting 🔧🚑
 
-1. If you encounter unauthorized errors, check if the API key is correctly set and used. 🔑❓
+1. For unauthorized errors, check if the API key is correctly set and used. 🔑❓
 2. If image generation fails, verify that the Cloudflare API Token has the correct permissions. 🎟️🔍
 3. If prompt translation isn't working, confirm that `CF_IS_TRANSLATE` is set to 'true' and the external API configuration is correct. 🌐🔧
-4. If you receive a 404 error, ensure you're accessing the correct endpoint path. 🔍🚷
+4. For 404 errors, ensure you're accessing the correct endpoint path. 🔍🚷
 5. For other errors, check the Worker's logs for more detailed error information. 📋🔬
 
 ## Further Customization 🛠️🎨
