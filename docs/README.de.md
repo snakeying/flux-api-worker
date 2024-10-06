@@ -1,5 +1,7 @@
 # Flux-API-Worker - README 📘🎨🤖
 
+[English](../README.md) | [简体中文](./README.zh-cn.md) | [繁體中文](./README.zh-hant.md) | [日本語](./README.ja.md) | [Español](./README.es.md) | [Français](./README.fr.md) | [Русский](./README.ru.md) | [Deutsch](./README.de.md)
+
 ## Einführung 🌟💡
 
 Flux-API-Worker ist ein KI-Bildgenerierungsdienst, der auf Cloudflare Workers bereitgestellt wird. Er nutzt das von Cloudflare bereitgestellte Flux-Modell zur Bilderzeugung und bietet eine effiziente API-Schnittstelle zur Verarbeitung von Anfragen. Dieser Dienst lässt sich einfach in verschiedene Anwendungen integrieren und bietet Benutzern leistungsstarke KI-Bildgenerierungsfähigkeiten. ✨🖼️🚀
