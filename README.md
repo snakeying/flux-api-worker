@@ -1,5 +1,7 @@
 # Flux-API-Worker 📘🎨🤖
 
+[English](./README.md) | [简体中文](./docs/README.zh-cn.md) | [繁體中文](./docs/README.zh-hant.md) | [日本語](./docs/README.ja.md) | [Español](./docs/README.es.md) | [Français](./docs/README.fr.md) | [Русский](./docs/README.ru.md) | [Deutsch](./docs/README.de.md)
+
 ## 简介 🌟💡
 
 Flux-API-Worker 是一个部署在 Cloudflare Worker 上的 AI 图像生成服务。它利用 Cloudflare 提供的 Flux 模型来生成图像，并提供了一个高效的 API 接口来处理请求。这个服务可以轻松集成到各种应用中，为用户提供强大的 AI 图像生成能力。✨🖼️🚀
