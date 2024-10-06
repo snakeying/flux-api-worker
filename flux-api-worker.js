@@ -1,218 +1,389 @@
-# Flux-API-Worker - README 📘🎨🤖
+function initConfig(env) {
+  return {
+    API_KEY: env.API_KEY,
+    CF_ACCOUNT_ID: env.CF_ACCOUNT_ID,
+    CF_API_TOKEN: env.CF_API_TOKEN,
+    CF_IS_TRANSLATE: env.CF_IS_TRANSLATE === 'true',
+    EXTERNAL_API_BASE: env.EXTERNAL_API_BASE,
+    EXTERNAL_MODEL: env.EXTERNAL_MODEL,
+    EXTERNAL_API_KEY: env.EXTERNAL_API_KEY,
+    FLUX_NUM_STEPS: parseInt(env.FLUX_NUM_STEPS, 10) || 4,
+    FLUX_MODEL: env.FLUX_MODEL || "@cf/black-forest-labs/flux-1-schnell",
+    IMAGE_EXPIRATION: parseInt(env.IMAGE_EXPIRATION, 10) || 60 * 30,
+    SYSTEM_MESSAGE: env.SYSTEM_MESSAGE || `You are a prompt generation bot based on the Flux.1 model. Based on the user's requirements, automatically generate drawing prompts that adhere to the Flux.1 format. While you can refer to the provided templates to learn the structure and patterns of the prompts, you must remain flexible to meet various different needs. The final output should be limited to the prompts only, without any additional explanations or information. You must reply to me entirely in English!
 
-## 简介 🌟💡
+    ### **Prompt Generation Logic**:
 
-Flux-API-Worker 是一个部署在 Cloudflare Worker 上的 AI 图像生成服务。它利用 Cloudflare 提供的 Flux 模型来生成图像，并提供了一个高效的 API 接口来处理请求。这个服务可以轻松集成到各种应用中，为用户提供强大的 AI 图像生成能力。✨🖼️🚀
+    1. **Requirement Analysis**: Extract key information from the user's description, including:
+    - Characters: Appearance, actions, expressions, etc.
+    - Scene: Environment, lighting, weather, etc.
+    - Style: Art style, emotional atmosphere, color scheme, etc.
+    - **Aspect Ratio**: If the user provides a specific aspect ratio (e.g., "3:2", "16:9"), extract this and integrate it into the final prompt.
+    - Other elements: Specific objects, background, or effects.
 
-## 功能特点 🚀🌈
+    2. **Prompt Structure Guidelines**:
+    - **Concise, precise, and detailed**: Prompts should describe the core subject simply and clearly, with enough detail to generate an image that matches the request.
+    - **Flexible and varied**: Use the user's description to dynamically create prompts without following rigid templates. Ensure prompts are adapted based on the specific needs of each user, avoiding overly template-based outputs.
+    - **Descriptions following Flux.1 style**: Prompts must follow the requirements of Flux.1, aiming to include descriptions of the art style, visual effects, and emotional atmosphere. Use keywords and description patterns that match the Flux.1 model's generation process. If a specific aspect ratio is mentioned, ensure it is included in the prompt description.
 
-- 🎨 支持自定义提示词生成图像
-- 🌐 可选的提示词翻译功能
-- 📐 支持多种预设图像尺寸和宽高比
-- 💾 使用 Cloudflare KV 存储生成的图像
-- 🔄 支持流式和非流式响应
-- 🔒 内置系统消息，确保一致的输出质量
-- 🌍 跨源资源共享（CORS）支持
-
-## 快速开始 🏃‍♂️💨
-
-### 在 Cloudflare Dashboard 中部署 🖥️🛠️
-
-1. 登录到您的 Cloudflare 账户，进入 Workers 页面。👨‍💻👩‍💻
-2. 点击 "创建服务" 按钮。🆕
-3. 为您的 Worker 命名，例如 "flux-api"。✏️
-4. 在编辑器中，粘贴提供的 Worker 代码。📋
-5. 点击 "保存并部署" 按钮。🚀
-
-### 设置环境变量 ⚙️🔧
-
-在 Worker 的设置页面中，找到 "环境变量" 部分，添加以下变量：
-
-## 环境变量列表 📋🔑
-
-| 变量名 | 描述 | 类型 | 示例 | 默认值 |
-|--------|------|------|------|--------|
-| `API_KEY` | API 身份验证密钥 🔐 | 字符串 | `"your-complex-api-key-here"` | - |
-| `CF_ACCOUNT_ID` | Cloudflare 账户 ID 🆔 | 字符串 | `"1a2b3c4d5e6f7g8h9i0j"` | - |
-| `CF_API_TOKEN` | Cloudflare API 令牌 🎟️ | 字符串 | `"your-cloudflare-api-token"` | - |
-| `CF_IS_TRANSLATE` | 是否启用提示词翻译 🌐 | 字符串 | `"true"` 或 `"false"` | - |
-| `EXTERNAL_API_BASE` | 外部 API 的基础 URL 🔗 | 字符串 | `"https://api.external-service.com"` | - |
-| `EXTERNAL_MODEL` | 外部翻译模型名称 🤖 | 字符串 | `"gpt-3.5-turbo"` | - |
-| `EXTERNAL_API_KEY` | 外部 API 的访问密钥 🗝️ | 字符串 | `"your-external-api-key"` | - |
-| `FLUX_NUM_STEPS` | Flux 模型的步数 🚶 | 整数 | `"4"` | 4 |
-| `IMAGE_EXPIRATION` | 图像在 KV 中的过期时间（秒）⏳ | 整数 | `"1800"` | 1800 |
-
-请确保在 Cloudflare Worker 的环境变量设置中正确配置这些变量。对于有默认值的变量，如不需更改，可保持默认设置。🔧✅
-
-> 注意：为了保证安全，请为 `API_KEY` 设置一个复杂的字符串。这将用于验证 API 调用的合法性。🔒🛡️
-
-### 创建 KV 命名空间 🗄️📦
-
-1. 在 Cloudflare Dashboard 中，转到 "Workers" 页面。🖥️
-2. 点击 "KV" 选项卡。📑
-3. 创建一个新的命名空间，命名为 "FLUX_CF_KV"。🆕
-4. 在 Worker 的设置中，将这个 KV 命名空间绑定到 `FLUX_CF_KV` 变量。🔗
-
-## API 端点和功能 🌐🛠️
-
-### 1. 欢迎页面 👋
-
-访问 Worker 的根路径 (`https://<your_worker_name>.<your_subdomain>.workers.dev/`) 将显示一个欢迎页面，确认 API 服务正在运行。✅🏠
-
-### 2. 聊天完成端点 💬
-
-主要的图像生成端点：
-```
-https://<your_worker_name>.<your_subdomain>.workers.dev/v1/chat/completions
-```
-🎨✨
-
-### 3. 模型信息端点 ℹ️
-
-获取可用模型信息：
-```
-https://<your_worker_name>.<your_subdomain>.workers.dev/v1/models
-```
-这个端点返回当前使用的 Flux 模型信息。🤖📊
-
-### 4. 图像获取端点 🖼️
-
-获取生成的图像：
-```
-https://<your_worker_name>.<your_subdomain>.workers.dev/image/{image_key}
-```
-📥🎭
-
-## 使用指南 📖🧭
-
-### 生成图像 🖼️🎨
-
-发送 POST 请求到聊天完成端点，格式如下：
-
-```json
-{
-  "messages": [
-    {
-      "role": "user",
-      "content": "一只可爱的猫咪 3:2"
-    }
-  ],
-  "stream": false
+    3. **Key Points Summary for Flux.1 Prompts**:
+    - **Concise and precise subject description**: Clearly identify the subject or scene of the image.
+    - **Specific description of style and emotional atmosphere**: Ensure the prompt includes information about the art style, lighting, color scheme, and emotional atmosphere of the image.
+    - **Details on dynamics and action**: Prompts may include important details like actions, emotions, or lighting effects in the scene.`
+  };
 }
-```
 
-请求头必须包含：
+let CONFIG;
 
-```
-Authorization: Bearer YOUR_API_KEY
-Content-Type: application/json
-```
+async function handleRequest(request, env, ctx) {
+  CONFIG = initConfig(env);
+  const url = new URL(request.url);
 
-> 重要：请将 `YOUR_API_KEY` 替换为您在环境变量中设置的 `API_KEY` 值。🔑🔄
+  if (request.method === "GET" && (url.pathname === "/" || url.pathname === "")) {
+    return new Response(generateWelcomePage(), {
+      status: 200,
+      headers: { "Content-Type": "text/html" }
+    });
+  }
 
-### 流式响应 🌊📡
+  if (url.pathname.startsWith('/image/')) {
+    return handleImageRequest(request, env, ctx);
+  }
 
-如果您希望接收流式响应，将 `stream` 参数设置为 `true`：
+  if (request.method === "OPTIONS") {
+    return handleCORS();
+  }
 
-```json
-{
-  "messages": [
-    {
-      "role": "user",
-      "content": "一只可爱的猫咪 3:2"
-    }
-  ],
-  "stream": true
+  if (!isAuthorized(request)) {
+    return new Response("Unauthorized", { status: 401 });
+  }
+
+  if (url.pathname.endsWith("/v1/models")) {
+    return handleModelsRequest();
+  }
+
+  if (request.method !== "POST" || !url.pathname.endsWith("/v1/chat/completions")) {
+    return new Response("Not Found", { status: 404 });
+  }
+
+  return handleChatCompletions(request, env, ctx);
 }
-```
 
-流式响应将以 Server-Sent Events (SSE) 格式返回，允许实时获取生成进度。⚡🔄
+function generateWelcomePage() {
+  return `
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Flux API - Ready for Requests</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                line-height: 1.6;
+                color: #333;
+                max-width: 800px;
+                margin: 0 auto;
+                padding: 20px;
+                text-align: center;
+            }
+            h1 {
+                color: #2c3e50;
+            }
+            .container {
+                background-color: #f7f9fc;
+                border-radius: 8px;
+                padding: 20px;
+                box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            }
+            .status {
+                font-size: 1.2em;
+                color: #27ae60;
+                font-weight: bold;
+            }
+            .info {
+                margin-top: 20px;
+                font-style: italic;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h1>Welcome to Flux API</h1>
+            <p class="status">Your Flux API is ready and waiting for requests!</p>
+            <p>This API is designed to handle specific endpoints for chat completions and image generation.</p>
+            <p class="info">For API documentation and usage instructions, please refer to your provided documentation.</p>
+        </div>
+    </body>
+    </html>
+  `;
+}
 
-### 支持的图像尺寸 📏🖼️
+function addCorsHeaders(headers) {
+  headers.set('Access-Control-Allow-Origin', '*');
+  headers.set('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  headers.set('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+}
 
-Flux-API-Worker 支持以下预设的图像尺寸和宽高比：
+function handleCORS() {
+  const headers = new Headers();
+  addCorsHeaders(headers);
+  return new Response(null, { status: 204, headers });
+}
 
-- 1:1 (1024x1024) - 默认尺寸 🟦
-- 3:2 (768x512) 🖼️
-- 2:3 (512x768) 📱
-- 16:9 (1024x576) 🖥️
-- 9:16 (576x1024) 📱
+function isAuthorized(request) {
+  const authHeader = request.headers.get("Authorization");
+  return authHeader && authHeader.startsWith("Bearer ") && authHeader.split(" ")[1] === CONFIG.API_KEY;
+}
 
-要指定特定的尺寸，只需在提示词后面添加相应的比例，例如：
+function handleModelsRequest() {
+  const models = [{ id: CONFIG.FLUX_MODEL, object: "model" }];
+  const headers = new Headers({ 'Content-Type': 'application/json' });
+  addCorsHeaders(headers);
+  return new Response(JSON.stringify({ data: models, object: "list" }), { headers });
+}
 
-```
-"一只可爱的猫咪 16:9"
-```
+function parseRatioAndSize(prompt) {
+  const ratios = {
+    "1:1": { width: 1024, height: 1024 },
+    "1:2": { width: 512, height: 1024 },
+    "3:2": { width: 768, height: 512 },
+    "3:4": { width: 768, height: 1024 },
+    "16:9": { width: 1024, height: 576 },
+    "9:16": { width: 576, height: 1024 }
+  };
 
-如果没有指定尺寸，系统将默认生成 1:1 (1024x1024) 的图片。🎛️🔧
+  const ratioMatch = prompt.match(/(\d+:\d+)(?:\s|$)/);
+  if (ratioMatch) {
+    const ratio = ratioMatch[1];
+    return {
+      size: ratios[ratio] || ratios["1:1"],
+      cleanedPrompt: prompt.replace(/\d+:\d+/, "").trim()
+    };
+  }
 
-### 跨源资源共享（CORS）支持 🌍🔓
+  return {
+    size: ratios["1:1"],
+    cleanedPrompt: prompt.trim()
+  };
+}
 
-Flux-API-Worker 支持 CORS，允许从不同域名的网页应用程序访问 API。这意味着您可以在前端 JavaScript 应用中直接调用 API，而不会遇到跨域问题。🔗🚫🚧
+async function handleChatCompletions(request, env, ctx) {
+  try {
+    const data = await request.json();
+    let { messages, stream } = data;
 
-### 在第三方应用中使用 🔗🔌
+    const userMessage = messages.filter(msg => msg.role === "user").pop();
 
-Flux-API-Worker 可以轻松集成到各种应用中，如 NextWeb、ChatBox 等。在这些应用中配置时：
-
-1. 将 API 地址设置为您的 Worker URL（聊天完成端点）。🔗
-2. 输入您设置的 API KEY。🔑
-3. 忽略应用提供的 System Message 设置，因为 Flux-API-Worker 使用内置的 System Message。💬🚫
-
-> 注意：Flux-API-Worker 已经移除了上下文功能，每次调用都会生成新的独特图像。🆕🖼️
-
-### 响应格式 📤📊
-
-非流式响应示例：
-
-```json
-{
-  "id": "chatcmpl-1234567890",
-  "created": 1677649420,
-  "model": "@cf/black-forest-labs/flux-1-schnell",
-  "object": "chat.completion",
-  "choices": [
-    {
-      "index": 0,
-      "message": {
-        "role": "assistant",
-        "content": "🎨 原始提示词：一只可爱的猫咪 3:2\n💬 提示词生成模型：Original Prompt\n🌐 翻译后的提示词：一只可爱的猫咪\n📐 图像规格：768x512\n🌟 图像生成成功！\n以下是结果：\n\n![生成的图像](https://your-worker-url.workers.dev/image/12345)"
-      },
-      "finish_reason": "stop"
+    if (!userMessage) {
+      return new Response(JSON.stringify({ error: "未找到用户消息" }), { status: 400, headers: { 'Content-Type': 'application/json' } });
     }
-  ],
-  "usage": {
-    "prompt_tokens": 20,
-    "completion_tokens": 100,
-    "total_tokens": 120
+
+    const originalPrompt = cleanPromptString(userMessage.content);
+    const model = CONFIG.FLUX_MODEL;
+    const promptModel = CONFIG.CF_IS_TRANSLATE ? CONFIG.EXTERNAL_MODEL : "Original Prompt";
+
+    const { size: originalSize, cleanedPrompt: cleanedOriginalPrompt } = parseRatioAndSize(originalPrompt);
+
+    const translatedPrompt = await getFluxPrompt(cleanedOriginalPrompt, originalSize);
+    
+    const imageUrl = await generateAndStoreFluxImage(model, translatedPrompt, request.url, env, ctx, originalSize);
+
+    const sizeString = `${originalSize.width}x${originalSize.height}`;
+
+    return handleResponse(originalPrompt, translatedPrompt, sizeString, model, imageUrl, promptModel, stream);
+  } catch (error) {
+    return new Response(JSON.stringify({ error: "Internal Server Error: " + error.message }), { status: 500, headers: { 'Content-Type': 'application/json' } });
   }
 }
-```
 
-## 注意事项 ⚠️🚨
+async function getFluxPrompt(prompt, size) {
+  if (!CONFIG.CF_IS_TRANSLATE) {
+    return prompt;
+  }
 
-- 确保所有必要的环境变量都已正确设置。✅🔧
-- API 密钥应当妥善保管，避免在客户端代码中暴露。🔒🙈
-- 图像在 KV 存储中有过期时间（默认 30 分钟），请及时保存重要的图像。⏳💾
-- 如启用提示词翻译功能，请确保外部 API 配置正确。🌐🔧
-- 使用流式响应时，确保您的客户端能够正确处理 Server-Sent Events。🌊📡
+  const aspectRatio = `${size.width}:${size.height}`;
 
-## 故障排除 🔧🚑
+  const requestBody = {
+    messages: [
+      {
+        role: "system",
+        content: CONFIG.SYSTEM_MESSAGE
+      },
+      { 
+        role: "user", 
+        content: `Generate a prompt for an image with the aspect ratio ${aspectRatio}. The description is: ${prompt}`
+      }
+    ],
+    model: CONFIG.EXTERNAL_MODEL
+  };
 
-1. 遇到未授权错误时，请检查 API 密钥是否正确设置和使用。🔑❓
-2. 图像生成失败时，请验证 Cloudflare API Token 是否具有正确的权限。🎟️🔍
-3. 提示词翻译不工作时，请确认 `CF_IS_TRANSLATE` 设置为 'true' 且外部 API 配置无误。🌐🔧
-4. 如果收到 404 错误，确保您访问的是正确的端点路径。🔍🚷
-5. 对于其他错误，检查 Worker 的日志以获取更详细的错误信息。📋🔬
+  try {
+    return await getExternalPrompt(requestBody);
+  } catch (error) {
+    console.error('Error in getFluxPrompt:', error);
+    return prompt;
+  }
+}
 
-## 进一步定制 🛠️🎨
+async function getExternalPrompt(requestBody) {
+  const response = await fetch(`${CONFIG.EXTERNAL_API_BASE}/v1/chat/completions`, {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${CONFIG.EXTERNAL_API_KEY}`,
+      'Content-Type': 'application/json',
+      'User-Agent': 'CloudflareWorker/1.0'
+    },
+    body: JSON.stringify(requestBody)
+  });
 
-您可以通过修改 Worker 代码来进一步优化 API 的功能，例如：
+  if (!response.ok) {
+    throw new Error(`External API request failed with status ${response.status}`);
+  }
 
-- 调整支持的图像尺寸和宽高比 📏✂️
-- 修改内置的系统消息以改变提示词生成的行为 💬🔄
-- 添加额外的错误处理和日志记录机制 🚨📊
-- 实现自定义的速率限制或其他安全措施 🛡️⏱️
+  const jsonResponse = await response.json();
+  if (!jsonResponse.choices || jsonResponse.choices.length === 0 || !jsonResponse.choices[0].message) {
+    throw new Error('Invalid response format from external API');
+  }
 
-我希望这个 README 能协助您快速部署和使用 Flux-API-Worker。如果您有任何疑问或需要进一步的帮助，请随时与我联系。💌👨‍💻👩‍💻
+  return jsonResponse.choices[0].message.content;
+}
 
-如果你觉得这个repo帮到了您，请给我一个start吧。⭐⭐⭐ 谢谢
+async function generateAndStoreFluxImage(model, prompt, requestUrl, env, ctx, size) {
+  const jsonBody = { 
+    prompt, 
+    num_steps: CONFIG.FLUX_NUM_STEPS,
+    width: size.width,
+    height: size.height
+  };
+  const response = await postRequest(model, jsonBody);
+  const jsonResponse = await response.json();
+  const base64ImageData = jsonResponse.result.image;
+
+  const imageBuffer = base64ToArrayBuffer(base64ImageData);
+
+  const key = `image_${Date.now()}_${Math.random().toString(36).substring(7)}`;
+
+  await env.FLUX_CF_KV.put(key, imageBuffer, {
+    expirationTtl: CONFIG.IMAGE_EXPIRATION,
+    metadata: { contentType: 'image/png' }
+  });
+
+  return `${new URL(requestUrl).origin}/image/${key}`;
+}
+
+function generateResponseContent(originalPrompt, translatedPrompt, size, model, imageUrl, promptModel) {
+  return `🎨 原始提示词：${originalPrompt}\n` +
+         `💬 提示词生成模型：${promptModel}\n` +
+         `🌐 翻译后的提示词：${translatedPrompt}\n` +
+         `📐 图像规格：${size}\n` +
+         `🌟 图像生成成功！\n` +
+         `以下是结果：\n\n` +
+         `![生成的图像](${imageUrl})`;
+}
+
+function handleResponse(originalPrompt, translatedPrompt, size, model, imageUrl, promptModel, isStream) {
+  const content = generateResponseContent(originalPrompt, translatedPrompt, size, model, imageUrl, promptModel);
+  const commonFields = {
+    id: `chatcmpl-${Date.now()}`,
+    created: Math.floor(Date.now() / 1000),
+    model: model
+  };
+
+  if (isStream) {
+    const encoder = new TextEncoder();
+    const stream = new ReadableStream({
+      start(controller) {
+        controller.enqueue(encoder.encode(`data: ${JSON.stringify({
+          ...commonFields,
+          object: "chat.completion.chunk",
+          choices: [{ delta: { content: content }, index: 0, finish_reason: null }]
+        })}\n\n`));
+        controller.enqueue(encoder.encode('data: [DONE]\n\n'));
+        controller.close();
+      }
+    });
+
+    const headers = new Headers({
+      "Content-Type": "text/event-stream",
+      "Cache-Control": "no-cache",
+      "Connection": "keep-alive"
+    });
+    addCorsHeaders(headers);
+    return new Response(stream, { headers });
+  } else {
+    const response = {
+      ...commonFields,
+      object: "chat.completion",
+      choices: [{
+        index: 0,
+        message: { role: "assistant", content },
+        finish_reason: "stop"
+      }],
+      usage: {
+        prompt_tokens: translatedPrompt.length,
+        completion_tokens: content.length,
+        total_tokens: translatedPrompt.length + content.length
+      }
+    };
+
+    const headers = new Headers({ 'Content-Type': 'application/json' });
+    addCorsHeaders(headers);
+    return new Response(JSON.stringify(response), { headers });
+  }
+}
+
+async function handleImageRequest(request, env, ctx) {
+  const url = new URL(request.url);
+  const key = url.pathname.split('/').pop();
+  
+  const imageData = await env.FLUX_CF_KV.get(key, 'arrayBuffer');
+  if (!imageData) {
+    return new Response('Image not found', { status: 404 });
+  }
+
+  const headers = new Headers({
+    'Content-Type': 'image/png',
+    'Cache-Control': 'public, max-age=604800',
+  });
+  addCorsHeaders(headers);
+  return new Response(imageData, { headers });
+}
+
+// 辅助函数
+function base64ToArrayBuffer(base64) {
+  const binaryString = atob(base64);
+  const bytes = new Uint8Array(binaryString.length);
+  for (let i = 0; i < binaryString.length; i++) {
+    bytes[i] = binaryString.charCodeAt(i);
+  }
+  return bytes.buffer;
+}
+
+async function postRequest(model, jsonBody) {
+  const apiUrl = `https://api.cloudflare.com/client/v4/accounts/${CONFIG.CF_ACCOUNT_ID}/ai/run/${model}`;
+  const response = await fetch(apiUrl, {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${CONFIG.CF_API_TOKEN}`,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(jsonBody)
+  });
+
+  if (!response.ok) {
+    throw new Error('Cloudflare API request failed: ' + response.status);
+  }
+  return response;
+}
+
+function cleanPromptString(prompt) {
+  return prompt.replace(/---n?tl/, "").trim();
+}
+
+export default {
+  async fetch(request, env, ctx) {
+    CONFIG = initConfig(env);
+    return handleRequest(request, env, ctx);
+  }
+};
