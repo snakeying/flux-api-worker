@@ -36,7 +36,7 @@ En la página de configuración del Worker, busque la sección "Variables de ent
 | `API_KEY` | Clave de autenticación de la API 🔐 | Cadena | `"su-clave-api-compleja-aquí"` | - |
 | `CF_ACCOUNT_ID` | ID de cuenta de Cloudflare 🆔 | Cadena | `"1a2b3c4d5e6f7g8h9i0j"` | - |
 | `CF_API_TOKEN` | Token de API de Cloudflare 🎟️ | Cadena | `"su-token-api-de-cloudflare"` | - |
-| `CF_IS_TRANSLATE` | Habilitar traducción de prompts 🌐 | Cadena | `"true"` o `"false"` | - |
+| `PROMPT_OPTIMIZATION` | Habilitar Optimización de Prompt 🌐 | Cadena | `"true"` o `"false"` | - |
 | `EXTERNAL_API_BASE` | URL base de la API externa 🔗 | Cadena | `"https://api.servicio-externo.com"` | - |
 | `EXTERNAL_MODEL` | Nombre del modelo de traducción externo 🤖 | Cadena | `"gpt-3.5-turbo"` | - |
 | `EXTERNAL_API_KEY` | Clave de acceso para la API externa 🗝️ | Cadena | `"su-clave-api-externa"` | - |
