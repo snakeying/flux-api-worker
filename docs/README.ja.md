@@ -37,7 +37,7 @@ Workerの設定ページで、「環境変数」セクションを見つけ、�
 | `API_KEY` | API認証キー 🔐 | 文字列 | `"your-complex-api-key-here"` | - |
 | `CF_ACCOUNT_ID` | Cloudflareアカウント ID 🆔 | 文字列 | `"1a2b3c4d5e6f7g8h9i0j"` | - |
 | `CF_API_TOKEN` | Cloudflare APIトークン 🎟️ | 文字列 | `"your-cloudflare-api-token"` | - |
-| `CF_IS_TRANSLATE` | プロンプト翻訳を有効にするかどうか 🌐 | 文字列 | `"true"` または `"false"` | - |
+| `PROMPT_OPTIMIZATION` | プロンプト最適化を有効にするか 🌐 | 文字列 | `"true"` または `"false"` | - |
 | `EXTERNAL_API_BASE` | 外部APIのベースURL 🔗 | 文字列 | `"https://api.external-service.com"` | - |
 | `EXTERNAL_MODEL` | 外部翻訳モデル名 🤖 | 文字列 | `"gpt-3.5-turbo"` | - |
 | `EXTERNAL_API_KEY` | 外部APIのアクセスキー 🗝️ | 文字列 | `"your-external-api-key"` | - |
