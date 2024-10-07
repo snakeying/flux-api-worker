@@ -159,7 +159,7 @@ Flux-API-WorkerはNextWeb、ChatBoxなど、さまざまなアプリケーショ
 
 1. APIアドレスをあなたのWorker URL（チャット完了エンドポイント）に設定します。🔗
 2. 設定したAPI KEYを入力します。🔑
-3. アプリケーションが提供するSystem Message設定は無視してください。Flux-API-Workerは内蔵のSystem Messageを使用します。💬🚫
+3. アプリが提供するSystem Messageの設定を気にする必要はありません。Flux-API-Workerは組み込みのSystem Messageを使用します。💬🚫
 
 > 注意：Flux-API-Workerはコンテキスト機能を削除しました。毎回の呼び出しで新しいユニークな画像が生成されます。🆕🖼️
 
