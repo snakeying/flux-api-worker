@@ -38,7 +38,7 @@ En la página de configuración del Worker, busque la sección "Variables de ent
 | `CF_API_TOKEN` | Token de API de Cloudflare 🎟️ | Cadena | `"su-token-api-de-cloudflare"` | - |
 | `PROMPT_OPTIMIZATION` | Habilitar Optimización de Prompt 🌐 | Cadena | `"true"` o `"false"` | - |
 | `EXTERNAL_API_BASE` | URL base de la API externa 🔗 | Cadena | `"https://api.servicio-externo.com"` | - |
-| `EXTERNAL_MODEL` | Nombre del modelo de traducción externo 🤖 | Cadena | `"gpt-3.5-turbo"` | - |
+| `EXTERNAL_MODEL` | Nombre del modelo de optimización externo 🤖 | Cadena | `"gpt-3.5-turbo"` | - |
 | `EXTERNAL_API_KEY` | Clave de acceso para la API externa 🗝️ | Cadena | `"su-clave-api-externa"` | - |
 | `FLUX_NUM_STEPS` | Número de pasos para el modelo Flux 🚶 | Entero | `"4"` | 4 |
 | `IMAGE_EXPIRATION` | Tiempo de expiración de las imágenes en KV (segundos) ⏳ | Entero | `"1800"` | 1800 |
@@ -177,7 +177,7 @@ Ejemplo de respuesta no streaming:
       "index": 0,
       "message": {
         "role": "assistant",
-        "content": "🎨 Prompt original: Un gato adorable 3:2\n💬 Modelo de generación de prompts: Prompt Original\n🌐 Prompt traducido: Un gato adorable\n📐 Especificaciones de la imagen: 768x512\n🌟 ¡Imagen generada con éxito!\nAquí está el resultado:\n\n![Imagen generada](https://url-de-su-worker.workers.dev/image/12345)"
+        "content": "🎨 Prompt original: Un gato adorable 3:2\n💬 Modelo de generación de prompts: Prompt Original\n🌐 Prompt optimizado: Un gato adorable\n📐 Especificaciones de la imagen: 768x512\n🌟 ¡Imagen generada con éxito!\nAquí está el resultado:\n\n![Imagen generada](https://url-de-su-worker.workers.dev/image/12345)"
       },
       "finish_reason": "stop"
     }
@@ -195,14 +195,14 @@ Ejemplo de respuesta no streaming:
 - Asegúrese de que todas las variables de entorno necesarias estén correctamente configuradas. ✅🔧
 - La clave API debe mantenerse segura y no exponerse en el código del cliente. 🔒🙈
 - Las imágenes tienen un tiempo de expiración en el almacenamiento KV (30 minutos por defecto), guarde las imágenes importantes a tiempo. ⏳💾
-- Si habilita la función de traducción de prompts, asegúrese de que la API externa esté configurada correctamente. 🌐🔧
+- Si la función de optimización de prompts está habilitada, asegúrese de que la API externa esté configurada correctamente. 🌐🔧
 - Al usar respuestas en streaming, asegúrese de que su cliente pueda manejar correctamente los Server-Sent Events. 🌊📡
 
 ## Solución de problemas 🔧🚑
 
 1. Si encuentra errores de no autorización, verifique que la clave API esté correctamente configurada y utilizada. 🔑❓
 2. Si la generación de imágenes falla, verifique que el Token de API de Cloudflare tenga los permisos correctos. 🎟️🔍
-3. Si la traducción de prompts no funciona, confirme que `CF_IS_TRANSLATE` esté configurado como 'true' y que la configuración de la API externa sea correcta. 🌐🔧
+3. Si la optimización de prompts no funciona, asegúrese de que `PROMPT_OPTIMIZATION` esté configurado como 'true' y que la API externa esté correctamente configurada. 🌐🔧
 4. Si recibe un error 404, asegúrese de estar accediendo a la ruta de endpoint correcta. 🔍🚷
 5. Para otros errores, revise los registros del Worker para obtener información de error más detallada. 📋🔬
 
