@@ -3,7 +3,7 @@ function initConfig(env) {
     API_KEY: env.API_KEY,
     CF_ACCOUNT_ID: env.CF_ACCOUNT_ID,
     CF_API_TOKEN: env.CF_API_TOKEN,
-    CF_IS_TRANSLATE: env.CF_IS_TRANSLATE === 'true',
+    PROMPT_OPTIMIZATION: env.PROMPT_OPTIMIZATION === 'true',
     EXTERNAL_API_BASE: env.EXTERNAL_API_BASE,
     EXTERNAL_MODEL: env.EXTERNAL_MODEL,
     EXTERNAL_API_KEY: env.EXTERNAL_API_KEY,
@@ -181,7 +181,7 @@ async function handleChatCompletions(request, env, ctx) {
 
     const originalPrompt = cleanPromptString(userMessage.content);
     const model = CONFIG.FLUX_MODEL;
-    const promptModel = CONFIG.CF_IS_TRANSLATE ? CONFIG.EXTERNAL_MODEL : "Original Prompt";
+    const promptModel = CONFIG.PROMPT_OPTIMIZATION ? CONFIG.EXTERNAL_MODEL : "Original Prompt";
 
     const { size: originalSize, cleanedPrompt: cleanedOriginalPrompt } = parseRatioAndSize(originalPrompt);
 
@@ -198,7 +198,7 @@ async function handleChatCompletions(request, env, ctx) {
 }
 
 async function getFluxPrompt(prompt, size) {
-  if (!CONFIG.CF_IS_TRANSLATE) {
+  if (!CONFIG.PROMPT_OPTIMIZATION) {
     return prompt;
   }
 
@@ -273,13 +273,13 @@ async function generateAndStoreFluxImage(model, prompt, requestUrl, env, ctx, si
 }
 
 function generateResponseContent(originalPrompt, translatedPrompt, size, model, imageUrl, promptModel) {
-  return `🎨 Исходный запрос: ${originalPrompt}\n` +
-         `💬 Модель генерации запроса: ${promptModel}\n` +
-         `🌐 Переведенный запрос: ${translatedPrompt}\n` +
-         `📐 Спецификации изображения: ${size}\n` +
-         `🌟 Генерация изображения успешна!\n` +
-         `Вот результат:\n\n` +
-         `![Сгенерированное изображение](${imageUrl})`;
+  return `🎨 原始提示词：${originalPrompt}\n` +
+         `💬 提示词生成模型：${promptModel}\n` +
+         `🌐 转换后的提示词：${translatedPrompt}\n` +
+         `📐 图像规格：${size}\n` +
+         `🌟 图像生成成功！\n` +
+         `以下是结果：\n\n` +
+         `![生成的图像](${imageUrl})`;
 }
 
 function handleResponse(originalPrompt, translatedPrompt, size, model, imageUrl, promptModel, isStream) {
@@ -350,7 +350,6 @@ async function handleImageRequest(request, env, ctx) {
   return new Response(imageData, { headers });
 }
 
-// 辅助函数
 function base64ToArrayBuffer(base64) {
   const binaryString = atob(base64);
   const bytes = new Uint8Array(binaryString.length);
