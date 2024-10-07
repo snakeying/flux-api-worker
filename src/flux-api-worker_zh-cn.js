@@ -202,6 +202,11 @@ async function getFluxPrompt(prompt, size) {
     return prompt;
   }
 
+    // 检查输入是否为英语
+  if (isEnglish(prompt)) {
+    return prompt;
+  }
+  
   const aspectRatio = `${size.width}:${size.height}`;
 
   const requestBody = {
@@ -224,6 +229,13 @@ async function getFluxPrompt(prompt, size) {
     console.error('Error in getFluxPrompt:', error);
     return prompt;
   }
+}
+
+// 新增函数：检查文本是否为英语
+function isEnglish(text) {
+  // 这是一个简单的检查，可以根据需要进行调整
+  // 这里假设如果文本中包含中文字符，就不是英语
+  return !/[\u4e00-\u9fa5]/.test(text);
 }
 
 async function getExternalPrompt(requestBody) {
