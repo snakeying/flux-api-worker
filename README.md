@@ -37,7 +37,7 @@ In the Worker's settings page, find the "Environment Variables" section and add 
 | `API_KEY` | API authentication key 🔐 | String | `"your-complex-api-key-here"` | - |
 | `CF_ACCOUNT_ID` | Cloudflare Account ID 🆔 | String | `"1a2b3c4d5e6f7g8h9i0j"` | - |
 | `CF_API_TOKEN` | Cloudflare API Token 🎟️ | String | `"your-cloudflare-api-token"` | - |
-| `CF_IS_TRANSLATE` | Enable prompt translation 🌐 | String | `"true"` or `"false"` | - |
+| `PROMPT_OPTIMIZATION` | Enable Prompt Optimization 🌐 | String | `"true"` or `"false"` | - |
 | `EXTERNAL_API_BASE` | External API base URL 🔗 | String | `"https://api.external-service.com"` | - |
 | `EXTERNAL_MODEL` | External translation model name 🤖 | String | `"gpt-3.5-turbo"` | - |
 | `EXTERNAL_API_KEY` | External API access key 🗝️ | String | `"your-external-api-key"` | - |
