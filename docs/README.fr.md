@@ -159,7 +159,7 @@ Flux-API-Worker peut être facilement intégré dans diverses applications telle
 
 1. Définissez l'adresse API sur l'URL de votre Worker (point d'accès de complétion de chat). 🔗
 2. Entrez l'API KEY que vous avez définie. 🔑
-3. Ignorez les paramètres de Message Système fournis par l'application, car Flux-API-Worker utilise un Message Système intégré. 💬🚫
+3. Inutile de tenir compte des paramètres System Message fournis par l'application, car le Flux-API-Worker utilise un System Message intégré. 💬🚫
 
 > Note : Flux-API-Worker a supprimé la fonctionnalité de contexte, chaque appel générera une nouvelle image unique. 🆕🖼️
 
