@@ -135,8 +135,9 @@ Les réponses en continu seront renvoyées au format Server-Sent Events (SSE), p
 Flux-API-Worker prend en charge les tailles et ratios d'image prédéfinis suivants :
 
 - 1:1 (1024x1024) - Taille par défaut 🟦
+- 1:2 (512x1024) 📱
 - 3:2 (768x512) 🖼️
-- 2:3 (512x768) 📱
+- 3:4 (768x1024) 📱
 - 16:9 (1024x576) 🖥️
 - 9:16 (576x1024) 📱
 
