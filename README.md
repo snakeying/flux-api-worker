@@ -135,8 +135,9 @@ Streaming responses will be returned in Server-Sent Events (SSE) format, allowin
 Flux-API-Worker supports the following preset image sizes and aspect ratios:
 
 - 1:1 (1024x1024) - Default size 🟦
+- 1:2 (512x1024) 📱
 - 3:2 (768x512) 🖼️
-- 2:3 (512x768) 📱
+- 3:4 (768x1024) 📱
 - 16:9 (1024x576) 🖥️
 - 9:16 (576x1024) 📱
 
