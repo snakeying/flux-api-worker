@@ -158,7 +158,7 @@ Flux-API-Worker se puede integrar fácilmente en diversas aplicaciones como Next
 
 1. Establezca la dirección de la API como la URL de su Worker (endpoint de completado de chat). 🔗
 2. Ingrese la CLAVE API que configuró. 🔑
-3. Ignore la configuración de Mensaje del Sistema proporcionada por la aplicación, ya que Flux-API-Worker utiliza un Mensaje del Sistema incorporado. 💬🚫
+3. No es necesario preocuparse por la configuración del System Message proporcionada por la aplicación, ya que Flux-API-Worker utiliza un System Message incorporado. 💬🚫
 
 > Nota: Flux-API-Worker ha eliminado la funcionalidad de contexto, generando una nueva imagen única en cada llamada. 🆕🖼️
 
