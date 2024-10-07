@@ -37,7 +37,7 @@ Dans la page des paramètres du Worker, trouvez la section "Variables d'environn
 | `API_KEY` | Clé d'authentification API 🔐 | Chaîne | `"votre-clé-api-complexe-ici"` | - |
 | `CF_ACCOUNT_ID` | ID du compte Cloudflare 🆔 | Chaîne | `"1a2b3c4d5e6f7g8h9i0j"` | - |
 | `CF_API_TOKEN` | Jeton API Cloudflare 🎟️ | Chaîne | `"votre-jeton-api-cloudflare"` | - |
-| `CF_IS_TRANSLATE` | Activer la traduction des prompts 🌐 | Chaîne | `"true"` ou `"false"` | - |
+| `PROMPT_OPTIMIZATION` | Activer l'optimisation du prompt 🌐 | Chaîne | `"true"` ou `"false"` | - |
 | `EXTERNAL_API_BASE` | URL de base de l'API externe 🔗 | Chaîne | `"https://api.service-externe.com"` | - |
 | `EXTERNAL_MODEL` | Nom du modèle de traduction externe 🤖 | Chaîne | `"gpt-3.5-turbo"` | - |
 | `EXTERNAL_API_KEY` | Clé d'accès pour l'API externe 🗝️ | Chaîne | `"votre-clé-api-externe"` | - |
