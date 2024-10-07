@@ -134,8 +134,9 @@ Las respuestas en streaming se devolverán en formato Server-Sent Events (SSE), 
 Flux-API-Worker soporta los siguientes tamaños y relaciones de aspecto predefinidos:
 
 - 1:1 (1024x1024) - Tamaño predeterminado 🟦
+- 1:2 (512x1024) 📱
 - 3:2 (768x512) 🖼️
-- 2:3 (512x768) 📱
+- 3:4 (768x1024) 📱
 - 16:9 (1024x576) 🖥️
 - 9:16 (576x1024) 📱
 
