@@ -273,13 +273,13 @@ async function generateAndStoreFluxImage(model, prompt, requestUrl, env, ctx, si
 }
 
 function generateResponseContent(originalPrompt, translatedPrompt, size, model, imageUrl, promptModel) {
-  return `🎨 原始提示词：${originalPrompt}\n` +
-         `💬 提示词生成模型：${promptModel}\n` +
-         `🌐 转换后的提示词：${translatedPrompt}\n` +
-         `📐 图像规格：${size}\n` +
-         `🌟 图像生成成功！\n` +
-         `以下是结果：\n\n` +
-         `![生成的图像](${imageUrl})`;
+return `🎨 Исходный запрос: ${originalPrompt}\n` +
+       `💬 Модель запроса: ${promptModel}\n` +
+       `🌐 Переведённый запрос: ${translatedPrompt}\n` +
+       `📐 Размер изображения: ${size}\n` +
+       `🌟 Изображение успешно создано!\n` +
+       `Вот результат:\n\n` +
+       `![Созданное изображение](${imageUrl})`;
 }
 
 function handleResponse(originalPrompt, translatedPrompt, size, model, imageUrl, promptModel, isStream) {
