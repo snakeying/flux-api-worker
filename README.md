@@ -159,7 +159,7 @@ Flux-API-Worker can be easily integrated into various applications such as NextW
 
 1. Set the API address to your Worker URL (chat completions endpoint). 🔗
 2. Enter the API KEY you set. 🔑
-3. Ignore the System Message setting provided by the application, as Flux-API-Worker uses built-in System Messages. 💬🚫
+3. No need to consider the System Message settings provided by the application, as the Flux-API-Worker uses a built-in System Message. 💬🚫
 
 > Note: Flux-API-Worker has removed the context functionality, generating a new unique image with each call. 🆕🖼️
 
