@@ -39,7 +39,7 @@ In the Worker's settings page, find the "Environment Variables" section and add 
 | `CF_API_TOKEN` | Cloudflare API Token 🎟️ | String | `"your-cloudflare-api-token"` | - |
 | `PROMPT_OPTIMIZATION` | Enable Prompt Optimization 🌐 | String | `"true"` or `"false"` | - |
 | `EXTERNAL_API_BASE` | External API base URL 🔗 | String | `"https://api.external-service.com"` | - |
-| `EXTERNAL_MODEL` | External translation model name 🤖 | String | `"gpt-3.5-turbo"` | - |
+| `EXTERNAL_MODEL` | External optimization model name 🤖 | String | `"gpt-3.5-turbo"` | - |
 | `EXTERNAL_API_KEY` | External API access key 🗝️ | String | `"your-external-api-key"` | - |
 | `FLUX_NUM_STEPS` | Number of steps for Flux model 🚶 | Integer | `"4"` | 4 |
 | `IMAGE_EXPIRATION` | Image expiration time in KV (seconds) ⏳ | Integer | `"1800"` | 1800 |
@@ -178,7 +178,7 @@ Example of a non-streaming response:
       "index": 0,
       "message": {
         "role": "assistant",
-        "content": "🎨 Original prompt: A cute cat 3:2\n💬 Prompt generation model: Original Prompt\n🌐 Translated prompt: A cute cat\n📐 Image specifications: 768x512\n🌟 Image generation successful!\nHere's the result:\n\n![Generated Image](https://your-worker-url.workers.dev/image/12345)"
+        "content": "🎨 Original prompt: A cute cat 3:2\n💬 Prompt generation model: Original Prompt\n🌐 Optimized prompt: A cute cat\n📐 Image specifications: 768x512\n🌟 Image generation successful!\nHere's the result:\n\n![Generated Image](https://your-worker-url.workers.dev/image/12345)"
       },
       "finish_reason": "stop"
     }
@@ -196,14 +196,14 @@ Example of a non-streaming response:
 - Ensure all necessary environment variables are correctly set. ✅🔧
 - API keys should be kept secure and not exposed in client-side code. 🔒🙈
 - Images in KV storage have an expiration time (default 30 minutes), so save important images promptly. ⏳💾
-- If enabling prompt translation, ensure the external API is configured correctly. 🌐🔧
+- If the prompt optimization feature is enabled, please ensure the external API is configured correctly. 🌐🔧
 - When using streaming responses, make sure your client can properly handle Server-Sent Events. 🌊📡
 
 ## Troubleshooting 🔧🚑
 
 1. For unauthorized errors, check if the API key is correctly set and used. 🔑❓
 2. If image generation fails, verify that the Cloudflare API Token has the correct permissions. 🎟️🔍
-3. If prompt translation isn't working, confirm that `CF_IS_TRANSLATE` is set to 'true' and the external API configuration is correct. 🌐🔧
+3. If prompt optimization is not working, please ensure `PROMPT_OPTIMIZATION` is set to 'true' and the external API is properly configured. 🌐🔧
 4. For 404 errors, ensure you're accessing the correct endpoint path. 🔍🚷
 5. For other errors, check the Worker's logs for more detailed error information. 📋🔬
 
