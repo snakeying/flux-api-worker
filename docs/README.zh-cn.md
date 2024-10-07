@@ -39,7 +39,7 @@ Flux-API-Worker 是一个部署在 Cloudflare Worker 上的 AI 图像生成服�
 | `CF_API_TOKEN` | Cloudflare API 令牌 🎟️ | 字符串 | `"your-cloudflare-api-token"` | - |
 | `PROMPT_OPTIMIZATION` | 是否启用提示词优化 🌐 | 字符串 | `"true"` 或 `"false"` | - |
 | `EXTERNAL_API_BASE` | 外部 API 的基础 URL 🔗 | 字符串 | `"https://api.external-service.com"` | - |
-| `EXTERNAL_MODEL` | 外部翻译模型名称 🤖 | 字符串 | `"gpt-3.5-turbo"` | - |
+| `EXTERNAL_MODEL` | 外部优化模型名称 🤖 | 字符串 | `"gpt-3.5-turbo"` | - |
 | `EXTERNAL_API_KEY` | 外部 API 的访问密钥 🗝️ | 字符串 | `"your-external-api-key"` | - |
 | `FLUX_NUM_STEPS` | Flux 模型的步数 🚶 | 整数 | `"4"` | 4 |
 | `IMAGE_EXPIRATION` | 图像在 KV 中的过期时间（秒）⏳ | 整数 | `"1800"` | 1800 |
@@ -178,7 +178,7 @@ Flux-API-Worker 可以轻松集成到各种应用中，如 NextWeb、ChatBox 等
       "index": 0,
       "message": {
         "role": "assistant",
-        "content": "🎨 原始提示词：一只可爱的猫咪 3:2\n💬 提示词生成模型：Original Prompt\n🌐 翻译后的提示词：一只可爱的猫咪\n📐 图像规格：768x512\n🌟 图像生成成功！\n以下是结果：\n\n![生成的图像](https://your-worker-url.workers.dev/image/12345)"
+        "content": "🎨 原始提示词：一只可爱的猫咪 3:2\n💬 提示词生成模型：Original Prompt\n🌐 优化后的提示词：一只可爱的猫咪\n📐 图像规格：768x512\n🌟 图像生成成功！\n以下是结果：\n\n![生成的图像](https://your-worker-url.workers.dev/image/12345)"
       },
       "finish_reason": "stop"
     }
@@ -196,14 +196,14 @@ Flux-API-Worker 可以轻松集成到各种应用中，如 NextWeb、ChatBox 等
 - 确保所有必要的环境变量都已正确设置。✅🔧
 - API 密钥应当妥善保管，避免在客户端代码中暴露。🔒🙈
 - 图像在 KV 存储中有过期时间（默认 30 分钟），请及时保存重要的图像。⏳💾
-- 如启用提示词翻译功能，请确保外部 API 配置正确。🌐🔧
+- 如启用提示词优化功能，请确保外部 API 配置正确。🌐🔧
 - 使用流式响应时，确保您的客户端能够正确处理 Server-Sent Events。🌊📡
 
 ## 故障排除 🔧🚑
 
 1. 遇到未授权错误时，请检查 API 密钥是否正确设置和使用。🔑❓
 2. 图像生成失败时，请验证 Cloudflare API Token 是否具有正确的权限。🎟️🔍
-3. 提示词翻译不工作时，请确认 `CF_IS_TRANSLATE` 设置为 'true' 且外部 API 配置无误。🌐🔧
+3. 提示词优化不工作时，请确认 `PROMPT_OPTIMIZATION` 设置为 'true' 且外部 API 配置无误。🌐🔧
 4. 如果收到 404 错误，确保您访问的是正确的端点路径。🔍🚷
 5. 对于其他错误，检查 Worker 的日志以获取更详细的错误信息。📋🔬
 
