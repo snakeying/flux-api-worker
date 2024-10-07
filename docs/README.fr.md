@@ -39,7 +39,7 @@ Dans la page des paramètres du Worker, trouvez la section "Variables d'environn
 | `CF_API_TOKEN` | Jeton API Cloudflare 🎟️ | Chaîne | `"votre-jeton-api-cloudflare"` | - |
 | `PROMPT_OPTIMIZATION` | Activer l'optimisation du prompt 🌐 | Chaîne | `"true"` ou `"false"` | - |
 | `EXTERNAL_API_BASE` | URL de base de l'API externe 🔗 | Chaîne | `"https://api.service-externe.com"` | - |
-| `EXTERNAL_MODEL` | Nom du modèle de traduction externe 🤖 | Chaîne | `"gpt-3.5-turbo"` | - |
+| `EXTERNAL_MODEL` | Nom du modèle d'optimisation externe 🤖 | Chaîne | `"gpt-3.5-turbo"` | - |
 | `EXTERNAL_API_KEY` | Clé d'accès pour l'API externe 🗝️ | Chaîne | `"votre-clé-api-externe"` | - |
 | `FLUX_NUM_STEPS` | Nombre d'étapes pour le modèle Flux 🚶 | Entier | `"4"` | 4 |
 | `IMAGE_EXPIRATION` | Durée d'expiration des images dans KV (secondes) ⏳ | Entier | `"1800"` | 1800 |
@@ -178,7 +178,7 @@ Exemple de réponse non-streaming :
       "index": 0,
       "message": {
         "role": "assistant",
-        "content": "🎨 Prompt original : Un chat mignon 3:2\n💬 Modèle de génération de prompt : Original Prompt\n🌐 Prompt traduit : Un chat mignon\n📐 Spécifications de l'image : 768x512\n🌟 Image générée avec succès !\nVoici le résultat :\n\n![Image générée](https://url-de-votre-worker.workers.dev/image/12345)"
+        "content": "🎨 Prompt original : Un chat mignon 3:2\n💬 Modèle de génération de prompt : Original Prompt\n🌐 Prompt optimisé : Un chat mignon\n📐 Spécifications de l'image : 768x512\n🌟 Image générée avec succès !\nVoici le résultat :\n\n![Image générée](https://url-de-votre-worker.workers.dev/image/12345)"
       },
       "finish_reason": "stop"
     }
@@ -196,14 +196,14 @@ Exemple de réponse non-streaming :
 - Assurez-vous que toutes les variables d'environnement nécessaires sont correctement configurées. ✅🔧
 - La clé API doit être conservée en sécurité et ne pas être exposée dans le code client. 🔒🙈
 - Les images ont une durée d'expiration dans le stockage KV (30 minutes par défaut), sauvegardez rapidement les images importantes. ⏳💾
-- Si la fonction de traduction des prompts est activée, assurez-vous que l'API externe est correctement configurée. 🌐🔧
+- Si la fonctionnalité d'optimisation des prompts est activée, assurez-vous que l'API externe est correctement configurée. 🌐🔧
 - Lors de l'utilisation des réponses en continu, assurez-vous que votre client peut traiter correctement les Server-Sent Events. 🌊📡
 
 ## Dépannage 🔧🚑
 
 1. En cas d'erreur d'autorisation, vérifiez que la clé API est correctement définie et utilisée. 🔑❓
 2. Si la génération d'image échoue, vérifiez que le jeton API Cloudflare a les bonnes permissions. 🎟️🔍
-3. Si la traduction des prompts ne fonctionne pas, confirmez que `CF_IS_TRANSLATE` est défini sur 'true' et que la configuration de l'API externe est correcte. 🌐🔧
+3. Si l'optimisation des prompts ne fonctionne pas, vérifiez que `PROMPT_OPTIMIZATION` est réglé sur 'true' et que l'API externe est correctement configurée. 🌐🔧
 4. Si vous recevez une erreur 404, assurez-vous d'accéder au bon chemin de point d'accès. 🔍🚷
 5. Pour d'autres erreurs, consultez les logs du Worker pour obtenir des informations d'erreur plus détaillées. 📋🔬
 
