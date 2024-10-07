@@ -37,7 +37,7 @@ Flux-API-Worker 是一個部署在 Cloudflare Worker 上的 AI 圖像生成服�
 | `API_KEY` | API 身份驗證密鑰 🔐 | 字串 | `"your-complex-api-key-here"` | - |
 | `CF_ACCOUNT_ID` | Cloudflare 帳戶 ID 🆔 | 字串 | `"1a2b3c4d5e6f7g8h9i0j"` | - |
 | `CF_API_TOKEN` | Cloudflare API 令牌 🎟️ | 字串 | `"your-cloudflare-api-token"` | - |
-| `CF_IS_TRANSLATE` | 是否啟用提示詞翻譯 🌐 | 字串 | `"true"` 或 `"false"` | - |
+| `PROMPT_OPTIMIZATION` | 是否啟用提示詞優化 🌐 | 字符串 | `"true"` 或 `"false"` | - |
 | `EXTERNAL_API_BASE` | 外部 API 的基礎 URL 🔗 | 字串 | `"https://api.external-service.com"` | - |
 | `EXTERNAL_MODEL` | 外部翻譯模型名稱 🤖 | 字串 | `"gpt-3.5-turbo"` | - |
 | `EXTERNAL_API_KEY` | 外部 API 的存取密鑰 🗝️ | 字串 | `"your-external-api-key"` | - |
