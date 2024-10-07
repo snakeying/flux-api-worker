@@ -9,7 +9,7 @@ Flux-API-Worker ist ein KI-Bildgenerierungsdienst, der auf Cloudflare Workers be
 ## Funktionen 🚀🌈
 
 - 🎨 Unterstützung benutzerdefinierter Prompts zur Bilderzeugung
-- 🌐 Optionale Prompt-Übersetzungsfunktion
+- 🌐 Optionale Prompt-Optimierungsfunktion
 - 📐 Unterstützung verschiedener voreingestellter Bildgrößen und Seitenverhältnisse
 - 💾 Speicherung generierter Bilder mit Cloudflare KV
 - 🔄 Unterstützung für Stream- und Nicht-Stream-Antworten
