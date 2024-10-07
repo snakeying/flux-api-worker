@@ -159,7 +159,7 @@ Flux-API-Worker 可以輕鬆整合到各種應用中，如 NextWeb、ChatBox 等
 
 1. 將 API 地址設置為您的 Worker URL（聊天完成端點）。🔗
 2. 輸入您設置的 API KEY。🔑
-3. 忽略應用提供的 System Message 設置，因為 Flux-API-Worker 使用內置的 System Message。💬🚫
+3. 無需理會應用提供的 System Message 設置，因為 Flux-API-Worker 使用內置的 System Message。💬🚫
 
 > 注意：Flux-API-Worker 已經移除了上下文功能，每次呼叫都會生成新的獨特圖像。🆕🖼️
 
