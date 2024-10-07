@@ -39,7 +39,7 @@ Finden Sie im Einstellungsbereich Ihres Workers den Abschnitt "Umgebungsvariable
 | `CF_API_TOKEN` | Cloudflare API-Token 🎟️ | Zeichenkette | `"your-cloudflare-api-token"` | - |
 | `PROMPT_OPTIMIZATION` | Prompt-Optimierung aktivieren 🌐 | Zeichenkette | `"true"` oder `"false"` | - |
 | `EXTERNAL_API_BASE` | Basis-URL der externen API 🔗 | Zeichenkette | `"https://api.external-service.com"` | - |
-| `EXTERNAL_MODEL` | Name des externen Übersetzungsmodells 🤖 | Zeichenkette | `"gpt-3.5-turbo"` | - |
+| `EXTERNAL_MODEL` | Externer Optimierungsmodellname 🤖 | Zeichenkette | `"gpt-3.5-turbo"` | - |
 | `EXTERNAL_API_KEY` | Zugriffsschlüssel für externe API 🗝️ | Zeichenkette | `"your-external-api-key"` | - |
 | `FLUX_NUM_STEPS` | Anzahl der Schritte für das Flux-Modell 🚶 | Ganzzahl | `"4"` | 4 |
 | `IMAGE_EXPIRATION` | Ablaufzeit der Bilder im KV (in Sekunden) ⏳ | Ganzzahl | `"1800"` | 1800 |
@@ -178,7 +178,7 @@ Beispiel einer Nicht-Stream-Antwort:
       "index": 0,
       "message": {
         "role": "assistant",
-        "content": "🎨 Originaler Prompt: Eine niedliche Katze 3:2\n💬 Prompt-Generierungsmodell: Original Prompt\n🌐 Übersetzter Prompt: Eine niedliche Katze\n📐 Bildspezifikation: 768x512\n🌟 Bild erfolgreich generiert!\nHier ist das Ergebnis:\n\n![Generiertes Bild](https://your-worker-url.workers.dev/image/12345)"
+        "content": "🎨 Originaler Prompt: Eine niedliche Katze 3:2\n💬 Prompt-Generierungsmodell: Original Prompt\n🌐 Optimiertes Prompt: Eine niedliche Katze\n📐 Bildspezifikation: 768x512\n🌟 Bild erfolgreich generiert!\nHier ist das Ergebnis:\n\n![Generiertes Bild](https://your-worker-url.workers.dev/image/12345)"
       },
       "finish_reason": "stop"
     }
@@ -196,14 +196,14 @@ Beispiel einer Nicht-Stream-Antwort:
 - Stellen Sie sicher, dass alle erforderlichen Umgebungsvariablen korrekt eingerichtet sind. ✅🔧
 - Der API-Schlüssel sollte sicher aufbewahrt und nicht im Client-Code offengelegt werden. 🔒🙈
 - Bilder haben eine Ablaufzeit im KV-Speicher (standardmäßig 30 Minuten). Speichern Sie wichtige Bilder rechtzeitig. ⏳💾
-- Wenn Sie die Prompt-Übersetzungsfunktion aktivieren, stellen Sie sicher, dass die externe API korrekt konfiguriert ist. 🌐🔧
+- Wenn die Prompt-Optimierungsfunktion aktiviert ist, stellen Sie sicher, dass die externe API korrekt konfiguriert ist. 🌐🔧
 - Bei Verwendung von Stream-Antworten stellen Sie sicher, dass Ihr Client Server-Sent Events korrekt verarbeiten kann. 🌊📡
 
 ## Fehlerbehebung 🔧🚑
 
 1. Bei Nicht-Autorisierungsfehlern überprüfen Sie, ob der API-Schlüssel korrekt eingerichtet und verwendet wird. 🔑❓
 2. Wenn die Bilderzeugung fehlschlägt, überprüfen Sie, ob das Cloudflare API-Token die richtigen Berechtigungen hat. 🎟️🔍
-3. Wenn die Prompt-Übersetzung nicht funktioniert, vergewissern Sie sich, dass `CF_IS_TRANSLATE` auf 'true' gesetzt ist und die externe API-Konfiguration korrekt ist. 🌐🔧
+3. Wenn die Prompt-Optimierung nicht funktioniert, überprüfen Sie, ob `PROMPT_OPTIMIZATION` auf 'true' gesetzt ist und die externe API korrekt konfiguriert ist. 🌐🔧
 4. Bei 404-Fehlern stellen Sie sicher, dass Sie den richtigen Endpunkt-Pfad aufrufen. 🔍🚷
 5. Für andere Fehler überprüfen Sie die Worker-Logs für detailliertere Fehlermeldungen. 📋🔬
 
