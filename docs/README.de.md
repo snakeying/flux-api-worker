@@ -37,7 +37,7 @@ Finden Sie im Einstellungsbereich Ihres Workers den Abschnitt "Umgebungsvariable
 | `API_KEY` | API-Authentifizierungsschlüssel 🔐 | Zeichenkette | `"your-complex-api-key-here"` | - |
 | `CF_ACCOUNT_ID` | Cloudflare-Konto-ID 🆔 | Zeichenkette | `"1a2b3c4d5e6f7g8h9i0j"` | - |
 | `CF_API_TOKEN` | Cloudflare API-Token 🎟️ | Zeichenkette | `"your-cloudflare-api-token"` | - |
-| `CF_IS_TRANSLATE` | Prompt-Übersetzung aktivieren 🌐 | Zeichenkette | `"true"` oder `"false"` | - |
+| `PROMPT_OPTIMIZATION` | Prompt-Optimierung aktivieren 🌐 | Zeichenkette | `"true"` oder `"false"` | - |
 | `EXTERNAL_API_BASE` | Basis-URL der externen API 🔗 | Zeichenkette | `"https://api.external-service.com"` | - |
 | `EXTERNAL_MODEL` | Name des externen Übersetzungsmodells 🤖 | Zeichenkette | `"gpt-3.5-turbo"` | - |
 | `EXTERNAL_API_KEY` | Zugriffsschlüssel für externe API 🗝️ | Zeichenkette | `"your-external-api-key"` | - |
