@@ -135,8 +135,9 @@ Stream-Antworten werden im Server-Sent Events (SSE) Format zurückgegeben, wodur
 Flux-API-Worker unterstützt die folgenden voreingestellten Bildgrößen und Seitenverhältnisse:
 
 - 1:1 (1024x1024) - Standardgröße 🟦
+- 1:2 (512x1024) 📱
 - 3:2 (768x512) 🖼️
-- 2:3 (512x768) 📱
+- 3:4 (768x1024) 📱
 - 16:9 (1024x576) 🖥️
 - 9:16 (576x1024) 📱
 
